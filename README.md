@@ -22,9 +22,9 @@ Currently, two official plugins are available:
 | Points | Explanation |
 | ------ | ----------- |
 | Stateless or presentational components | The Movies.jsx and Logo.jsx and some other components are example of stateless component. |
-
+| ------ | ----------- |
 | Stateful components | The WatchedBox.jsx and Search.jsx and some other components are example of stateful component. |
-
+| ------ | ----------- |
 | Structural components |The WatchedBox, Navbar.jsx and some other components, including App.jsx are example of structural components because they show a layout, how components will be displayed. |
 
 ##### Alternative way of passing props using the opening and closing component tag. Example was done in the Movie folder, movie.jsx, the NavBar opening and closing tag component in movie.jsx.
