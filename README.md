@@ -20,7 +20,7 @@ Currently, two official plugins are available:
 #### Using the Movie project as an example.
 
 | Points | Explanation |
-
+| ------ | ----------- |
 | Stateless or presentational components | The Movies.jsx and Logo.jsx and some other components are example of stateless component. |
 
 | Stateful components | The WatchedBox.jsx and Search.jsx and some other components are example of stateful component. |
