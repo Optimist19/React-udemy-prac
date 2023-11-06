@@ -8,6 +8,8 @@ import Accordion from "./components/Accordion/Accordion";
 import Challenge from "./components/Challenge/Challenge";
 import EatAndSlpit from "./components/Eat and split/EatAndSlpit";
 import Movie from "./components/Movie/Movie";
+import Friends from "./components/Eat and split2/Friends";
+import CurrencyConverter from "./components/CurrencyConverter";
 // import { pizzaData } from "./data"
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
         <Challenge />
         <EatAndSlpit />
         <Movie />
+        <Friends />
+        <CurrencyConverter />
       </div>
     </>
   );

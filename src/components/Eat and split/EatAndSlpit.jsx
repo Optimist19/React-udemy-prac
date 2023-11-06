@@ -1,91 +1,92 @@
-// import React from 'react'
 import { useState } from "react";
-import { useEffect } from "react";
-import axios from "axios";
+import "./index.css"
+import Friends from "./Friends";
+// import { useEffect } from "react";
+// import axios from "axios";
+
+const initialFriends = [
+  {
+    id: 118836,
+    name: "Clark",
+    image: "https://i.pravatar.cc/48?u=118836",
+    balance: -7,
+  },
+  {
+    id: 933372,
+    name: "Sarah",
+    image: "https://i.pravatar.cc/48?u=933372",
+    balance: 20,
+  },
+  {
+    id: 499476,
+    name: "Anthony",
+    image: "https://i.pravatar.cc/48?u=499476",
+    balance: 0,
+  },
+];
 
 function EatAndSlpit() {
-  const [inputs, setInputs] = useState({
-    nameOfFriend: "",
-    imageUrl: "https://i.pravatar.cc/",
-    pic: ""
-  });
-  // setInputs()
 
-  function friendName(e) {
-    setInputs({ ...inputs, [e.target.name]: e.target.value });
-    console.log(inputs);
-  }
+  const [friends, setFriends] = useState(initialFriends)
 
-//   function add(e) {
-//     e.preventDefault();
-//     fetch("https://i.pravatar.cc/")
-//       .then((res) => res.json())
-//       .then((result) => setInputs({ ...inputs, pic: result }));
-//   }
+  const [payer, setPayer] = useState("")
 
-  // useEffect(()=>{
-  // 	add()
-  // },[])
-  // let pic = null
+  const [spillBill, setspillBill] = useState({
+		bill: "",
+		expense: ""
+	})
 
-//   useEffect(() => {
-//     // Function to fetch a random avatar from the API
-//     const add = async () => {
-//       try {
-//         const response = await axios.get("https://i.pravatar.cc/"); // You can specify the image size you want
-//         // setAvatarUrl(response.config.url); // Set the image URL in the state
-// 		console.log(response)
-//         // setInputs({ ...inputs, pic: response.config.url });
-//       } catch (error) {
-//         console.error("Error fetching avatar:", error);
-//       }
-//     };
+  const [output, setOutput] = useState('')
 
-//     add();
-//   }, []);
+  function billExpense(e){
+		setspillBill({...spillBill, [e.target.name]:e.target.value})
+	}
 
-// async function generatePic(){
-// 	try{
 
-// 		const a = await axios.get('https://api.api-ninjas.com/v1/celebrity',{
-// 		method: 'GET',
-// 		headers: {
-// 			'X-Api-Key':'CnCOfjMfvpVNes4A4zKXxQ==izfH1ZJ1Bd8BY6QW',
-// 			"contentType": 'application/json'
-// 			}
+  function selectPayer(e){
+		setPayer(e.target.value)
+	}
+  
+  console.log(payer)
+
+  
+  
+  function payment(name){
+		if(payer === name){
+			setOutput(`You are owing ${name} ${spillBill.bill - spillBill.expense}`)
 			
-// 		});
-// 		console.log(a)
-// 	}catch(err){
-// 		console.log(err.message)
-// 	}
-// }
+		}else{
+			setOutput(`${name}  is owing you ${spillBill.bill - spillBill.expense}`)
+		}
+	}
 
-  useEffect(()=>{
-	// generatePic()
-  },[])
+  
 
   return (
-    <div className="modal-con">
-      <form className="modal">
-        <label htmlFor="friendName">
-          Friend Name
-          <input
-            type="text"
-            id="friendName"
-            value={inputs.nameOfFriend}
-            onChange={friendName}
-            name="nameOfFriend"
-          />
-        </label>
 
-        <label htmlFor="friendName">
-          Image URL
-          <input type="text" id="friendName" value={inputs.imageUrl} readOnly />
+
+    <div>
+      <h1>Eat and Split(<strong>It has bug</strong>)</h1>
+      <div>        {
+          friends.map(friend =>{
+            return (
+              <div key={friend.id}>
+                <Friends friend={friend} selectPayer={selectPayer} payment={payment} spillBill={spillBill}
+billExpense={billExpense} output={output}/>
+              </div>
+            )
+          })
+        }
+      </div>
+
+      <div>
+        <label>Friend name
+          <input type="text" />
         </label>
-        <button type="submit">Add</button>
-      </form>
-      <img src={`${inputs.pic}`} alt="a beautiful profile pic" />
+        <label>Image URL
+          <input type="text" />
+        </label>
+      </div>
     </div>
   );
 }

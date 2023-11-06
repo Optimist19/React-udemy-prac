@@ -101,3 +101,100 @@ export default function Rating({maxRating, color, size, message, defaultRating, 
 }
 
 ```
+
+
+## The useEffect and it cleanup. You will find this in Movie component
+
+``` js
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function fetchMovies() {
+      try {
+        setIsLoading(true);
+
+        setError("");
+
+        const res = await fetch(
+          `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+          { signal: controller.signal }
+        );
+
+        if (!res.ok)
+          throw new Error("Something went wrong with fetching movies");
+
+        const data = await res.json();
+
+        if (data.Response === "False") throw new Error("Movie not Found");
+
+        setMovies(data.Search);
+        // console.log(data.Search)
+        // console.log(data)
+        // setIsLoading(false)
+      } catch (err) {
+        console.log(err.message);
+
+        if (err.name !== "AbortError") {
+          setError(err.message);
+        }
+
+        setError("Movie not found");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    if (query.length < 3) {
+      setMovies([]);
+      setError("");
+      return;
+    }
+
+    handleCloseMovie()
+
+    fetchMovies();
+
+    return () => {
+      controller.abort();
+
+    };
+  }, [query]);
+
+```
+
+## The useEffect and it cleanup. You will find this in MovieDetails component
+
+``` js
+ useEffect(()=>{
+
+    function callBack(e){
+      if(e.code === "Escape"){
+        onCloseMovie()
+        console.log("Closing")
+      }
+    }
+
+    document.addEventListener("keydown", callBack)
+
+    return function(){
+      document.removeEventListener('keydown', callBack)
+    }
+  }, [onCloseMovie])
+
+
+```
+
+## The useEffect and it cleanup. You will find this in MovieDetails component
+
+``` js
+  useEffect(()=>{
+    if(!title) return
+    document.title = `Movie | ${title}`
+    
+    return function (){
+      document.title = "usePopcorn"
+    }
+  }, [title])
+
+```
