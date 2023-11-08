@@ -198,3 +198,22 @@ export default function Rating({maxRating, color, size, message, defaultRating, 
   }, [title])
 
 ```
+
+#### You can find this in the hook folder in the  movies component.
+``` js
+import { useEffect, useState } from "react"
+
+export function useLocalStorage(initialState, key) {
+	const [value, setValue] = useState(()=>{
+		const storedValue = localStorage.getItem(key)
+		return storedValue ? JSON.parse(storedValue) : initialState
+	})
+
+	useEffect(()=>{
+		localStorage.setItem(key, JSON.stringify(value))
+	},[value, key])
+
+	return [value, setValue]
+}
+// This was in a component before putting it in a custom hook. But I want you to know that exist is the getting a state from the locaStorage. Why there is a conditional rendering is because when there is nothing in the localStorage, it gets to break the application since the array is empty. So, a ternary was done there.
+```

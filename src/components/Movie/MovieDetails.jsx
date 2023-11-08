@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import RatingStar from "./RatingStar"
 import Loading from "./Loading"
 
@@ -11,12 +11,22 @@ function MovieDetails({selectedId, onCloseMovie, keyforAPi, onAddWatched, watche
   const [userRating, setUserRating] = useState("")
 
 
+  const counterRef = useRef(0)
+
+  useEffect(()=>{
+    if(userRating) counterRef.current = counterRef.current + 1
+  },[userRating])
+
 
   const iswatched = watched.map(movie =>movie.imdbID).includes(selectedId)
 
   // console.log(iswatched)
 
   const watchedUserRating = watched.find(movie =>movie.imdbID ===selectedId) ?.userRating
+
+  // /* eslint-disable */
+
+  // if(imdbRating > 8) [isTop, setTop] = useState(true)
 
 
   const {Title: title, Year: year, Poster: poster, Runtime: runtime, imdbRating, Plot: plot, Released: released, Actors: actors, Director: director, Genre: genre} = movie
@@ -39,7 +49,7 @@ function MovieDetails({selectedId, onCloseMovie, keyforAPi, onAddWatched, watche
       setIsLoading(false)
     }
 
-    // getMovieDetails()
+    getMovieDetails()
   }, [selectedId])
 
   function handleAdd(){
@@ -51,7 +61,8 @@ function MovieDetails({selectedId, onCloseMovie, keyforAPi, onAddWatched, watche
       poster,
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split(" ").at(0)),
-      userRating
+      userRating,
+      countRatingDecision: counterRef.current
     }
 
     onAddWatched(newWatchedMovie)

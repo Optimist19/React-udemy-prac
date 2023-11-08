@@ -9,7 +9,8 @@ import Challenge from "./components/Challenge/Challenge";
 import EatAndSlpit from "./components/Eat and split/EatAndSlpit";
 import Movie from "./components/Movie/Movie";
 import Friends from "./components/Eat and split2/Friends";
-import CurrencyConverter from "./components/CurrencyConverter";
+import CurrencyConverter from "./components/CurrencyConverter/CurrencyConverter";
+import LocatorMap from "./components/Geolocation/LocatorMap";
 // import { pizzaData } from "./data"
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Movie />
         <Friends />
         <CurrencyConverter />
+        <LocatorMap />
       </div>
     </>
   );
